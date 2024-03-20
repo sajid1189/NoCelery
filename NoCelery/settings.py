@@ -125,4 +125,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EAGER_TASKS = False
 
-SQS_QUEUES = {"qname1": {"url": "AWS-SQS-URL"}}
+SQS_QUEUES = {
+    "q1": {"url": "https://sqs.eu-central-1.amazonaws.com/010328012823/q1"},
+    "q2": {"url": "https://sqs.eu-central-1.amazonaws.com/010328012823/q2.fifo"}
+}

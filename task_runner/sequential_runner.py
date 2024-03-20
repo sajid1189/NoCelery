@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+
 import boto3
 import importlib
 import os
@@ -14,8 +17,10 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "NoCelery.settings")
+
 django.setup()
 
 
@@ -51,10 +56,10 @@ def main(queue_url):
             raise e
 
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--qn", help="Queue name.")
-    queue_url = settings.SQS_QUEUES[parser.qn]["url"]
+    args = parser.parse_args()
+    queue_url = settings.SQS_QUEUES[args.qn]["url"]
     main(queue_url)
-
-

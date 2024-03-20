@@ -1,13 +1,18 @@
 from django.http import HttpResponse
-from django.shortcuts import render
 from datetime import datetime
-from main.tasks import add, test_func, incr_foo
 from main.models import Foo
-
-# Create your views here.
+from main.tasks import incr_foo, create_foo
 
 
 def home(request):
-    f = Foo.objects.create(value=3)
+    f = Foo.objects.create(value=1)
     incr_foo(f.id, datetime.now().isoformat())
     return HttpResponse("Hello!")
+
+
+def fifo(request):
+    value = int(request.GET.get("value"))
+    create_foo(value)
+    return HttpResponse(f"created {value}")
+
+
